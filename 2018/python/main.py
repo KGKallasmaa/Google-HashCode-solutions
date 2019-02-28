@@ -12,11 +12,12 @@ Problem description:
 
 # Initial Data
 def read_general_data(file_name):
+    # noinspection SpellCheckingInspection
     '''
-     3 4 2 3 2 10  3 rows, 4 columns, 2 vehicles, 3 rides, 2 bonus and 10 stepsise
-     0 0 1 3 2 9 ride from [0,0] to [1,3], earliest stat 2, latest finish 9
-    ...
-     '''
+         3 4 2 3 2 10  3 rows, 4 columns, 2 vehicles, 3 rides, 2 bonus and 10 stepsise
+         0 0 1 3 2 9 ride from [0,0] to [1,3], earliest stat 2, latest finish 9
+        ...
+         '''
     lines = [line.rstrip('\n') for line in open(file_name)]
 
     while True:
