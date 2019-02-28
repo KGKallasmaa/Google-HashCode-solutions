@@ -1,3 +1,4 @@
+
 def read_general_data (fname):
     '''
     Return:
@@ -13,9 +14,10 @@ def read_general_data (fname):
 
 
 class Picture:
-  def __init__(self,id,number_of_tags,orientation,tags):
+  def __init__(self,id,is_used,number_of_tags,orientation,tags):
       self.id = id
       self.number_of_tags = number_of_tags
+      self.is_used = is_used
       self.orientation = orientation
       self.tags = tags
 
@@ -35,18 +37,51 @@ def read_picture_data(fname):
                 j = 0
                 ori = information[0]
                 number_of_tags = information[1]
-                print (ori)
                 tags = information[2:]
                
                         
-                picture = Picture(id,number_of_tags,ori,tags)
+                picture = Picture(id,False,number_of_tags,ori,tags)
                 pictures.append(picture)
                 id +=1 
 
     return pictures
+
+
+def make_output_file(input_pics):
+
+    f = open("submit_file.txt", "a")
+
+    i = 0
+    current_submitformat_is_horistonal = True
+    for pic in input_pics:
+        if (i == 0):
+            nuber_of_pics = str(len(input_pics))
+            f.write(nuber_of_pics+ "\n")
+            i += 1
+        else:
+            pic_id = str(pic.id)
+            pic_orientation =str(pic.orientation)
+
+            #picture is horistonal
+            if (pic_orientation == "H"):
+                f.write(pic_id)
+                current_submitformat_is_horistonal = True
+            #is vertical
+            else:
+                if (current_submitformat_is_horistonal):
+                     f.write(pic_id+" ")
+                     current_submitformat_is_horistonal = False
+                else:
+                     f.write(pic_id+ "\n")    
+
+    f.close()                     
+
 
 #Input
 input_file_name = "files/a_example.txt"
 numer_of_pictures = read_general_data(input_file_name)
 
 pictures = read_picture_data(input_file_name)
+
+
+make_output_file(pictures)
